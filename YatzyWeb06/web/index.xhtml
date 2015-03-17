@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Yatzy</title>
+    </h:head>
+    <h:body>
+        <h:graphicImage style="width: 750px; margin-bottom: 15px;" url="yatzy4.png" alt="Yatzy" />
+        <h1>Tervetuloa pelaamaan Yatzya!</h1>
+        <h:form style="width: auto; height: auto; max-width: 750px;">
+            <fieldset>
+                <legend>Anna nimimerkkisi:</legend>
+                <h:inputText id="name" value="${uIController.name}"></h:inputText>
+                <h:commandButton style="margin-left: 20px; margin-bottom: 20px" action="#{uIController.addPlayerToList}" value="Aulaan"></h:commandButton>
+            </fieldset>
+        </h:form>
+    </h:body>
+</html>
