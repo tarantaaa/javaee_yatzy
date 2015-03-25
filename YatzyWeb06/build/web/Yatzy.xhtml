@@ -1,0 +1,183 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Yatzy</title>
+        <script type="text/JavaScript">
+            function TimeToRefresh() {
+            var t = 2000;
+            setTimeout("location.href = 'Yatzy.xhtml';", t);
+            }
+        </script>
+    </h:head>
+    <h:body onload="JavaScript:TimeToRefresh();">
+        <h:graphicImage style="width: auto; height: auto; max-width: 750px; margin-bottom: 15px;" url="banneri.png" alt="Yatzy" />
+        <p><b>Pelikierros:</b> #{gameController.turnNow()}  / 12   
+            <br/> #{gameController.inTurn} 
+            <h:form style="width: auto; height: auto; max-width: 750px; margin-bottom: 15px">
+                <fieldset style="background-color: gainsboro;"> 
+                    <legend style="font-family: arial; background-color: burlywood;">Nopat</legend>
+                    <h:dataTable value="#{gameController.yourGame.dices}" var="dicex" >               
+                        <h:column> 
+                            <f:facet name="header">
+                                <h:outputText value="Nopan arvo"> </h:outputText>
+                            </f:facet>
+                            <h:outputText value="${dicex.roll}" />
+                        </h:column>
+                        <h:column>    
+                            <f:facet name="header">
+                                <h:outputText value="Lukittu"> </h:outputText>
+                            </f:facet>
+                            <h:outputText value="${dicex.pressed}" />
+                        </h:column>
+                        <h:column>                                            
+                            <h:commandButton value="LOCK" action="#{dicex.setPressed()}" /> 
+                        </h:column>    
+                    </h:dataTable>
+                    <p>
+                        <h:commandButton action="#{gameController.roll()}" value="Heitä" style="margin-right: 20px;" />  
+                        Heitetty: <h:outputText value="${gameController.roll}" /> / 3
+                    </p>
+                </fieldset>
+            </h:form>     
+            
+            <h:form style="width: auto; height: auto; max-width: 1100px;">
+                <fieldset style="background-color: gainsboro;"> 
+                    <legend style="font-family: arial; background-color: burlywood; ">Pisteet</legend>
+                    <h:dataTable value="#{gameController.yourGame.players}" var="gamex" >               
+                        <h:column> 
+                            <f:facet name="header">
+                                <h:outputText value="Nimi"> </h:outputText>
+                            </f:facet>
+                            <h:outputText value="${gamex.name}" />
+                        </h:column>
+                        <h:column>    
+                            <f:facet name="header">
+                                <h:outputText value="Turn"> </h:outputText>
+                            </f:facet>
+                            <h:outputText value="${gamex.turn}" />
+                        </h:column>
+                        <h:column>    
+                            <f:facet name="header">
+                                <h:outputText value="Ykköset"> </h:outputText>
+                            </f:facet>
+                            <h:commandButton value="${gamex.ones}" action="${gameController.yourOnes}" />
+                        </h:column>
+                        <h:column>    
+                            <f:facet name="header">
+                                <h:outputText value="Kakkoset"> </h:outputText>
+                            </f:facet>
+                            <h:commandButton value="${gamex.twos}" action="#{gameController.yourTwos}" />
+                        </h:column>
+                        <h:column>    
+                            <f:facet name="header">
+                                <h:outputText value="Kolmoset"> </h:outputText>
+                            </f:facet>
+                            <h:commandButton value="${gamex.threes}" action="#{gameController.yourThrees}" />
+                        </h:column>
+                        <h:column>    
+                            <f:facet name="header">
+                                <h:outputText value="Neloset"> </h:outputText>
+                            </f:facet>
+                            <h:commandButton value="${gamex.fours}" action="#{gameController.yourFours}" />
+                        </h:column>
+                        <h:column>    
+                            <f:facet name="header">
+                                <h:outputText value="Vitoset"> </h:outputText>
+                            </f:facet>
+                            <h:commandButton value="${gamex.fives}" action="#{gameController.yourFives}" />
+                        </h:column>
+                        <h:column>    
+                            <f:facet name="header">
+                                <h:outputText value="Kutoset"> </h:outputText>
+                            </f:facet>
+                            <h:commandButton value="${gamex.sixes}" action="#{gameController.yourSixes()}" />
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Summa"> </h:outputText>
+                            </f:facet>
+                            <h:outputText value="${gamex.sum}"> </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Bonus"> </h:outputText>
+                            </f:facet>
+                            <h:outputText value="${gamex.bonus}"> </h:outputText>
+                        </h:column>
+
+
+                        <!--         <h:column>    
+                                 <f:facet name="header">
+                                    <h:outputText value="Pari"> </h:outputText>
+                                </f:facet>
+                                  <h:commandButton value="${gamex.onepair}" action="#{gameController.yourOnePair()}" />
+                                </h:column>
+                                <h:column>    
+                                <f:facet name="header">
+                                    <h:outputText value="2 paria"> </h:outputText>
+                                </f:facet>
+                                    <h:commandButton value="${gamex.twopair}" action="#{gameController.yourTwoPair()}" />
+                                </h:column> -->
+                        <h:column>    
+                            <f:facet name="header"> 
+                                <h:outputText value="3 samaa"> </h:outputText>
+                            </f:facet>
+                            <h:commandButton value="${gamex.threeOfAKind}" action="#{gameController.yourThreeSame()}" />
+                        </h:column>
+                        <h:column>    
+                            <f:facet name="header">
+                                <h:outputText value="4 samaa"> </h:outputText>
+                            </f:facet>
+                            <h:commandButton value="${gamex.fourOfAKind}" action="#{gameController.yourFourSame()}" />
+                        </h:column>
+                        <h:column>    
+                            <f:facet name="header">
+                                <h:outputText value="House"> </h:outputText>
+                            </f:facet>
+                            <h:commandButton value="${gamex.fullHouse}" action="#{gameController.yourHouse()}" />
+                        </h:column>
+                        <h:column>    
+                            <f:facet name="header">
+                                <h:outputText value="Pieni suora"> </h:outputText>
+                            </f:facet>
+                            <h:commandButton value="${gamex.smallStraight}" action="#{gameController.yourSmallSTraight()}" />
+                        </h:column>
+                        <h:column>    
+                            <f:facet name="header">
+                                <h:outputText value="Iso suora"> </h:outputText>
+                            </f:facet>
+                            <h:commandButton value="${gamex.largeStraight}" action="#{gameController.yourLargeStraight()}" />
+                        </h:column>
+                        <h:column>    
+                            <f:facet name="header">
+                                <h:outputText value="Sattuma"> </h:outputText>
+                            </f:facet>
+                            <h:commandButton value="${gamex.change}" action="#{gameController.yourChance()}" />
+                        </h:column>
+                        <h:column>    
+                            <f:facet name="header">
+                                <h:outputText value="Yatzy"> </h:outputText>
+                            </f:facet>
+                            <h:commandButton value="${gamex.yatzy}" action="#{gameController.yourYatzy()}" />
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Kokonaispisteet"> </h:outputText>
+                            </f:facet>
+                            <h:outputText value="${gamex.total}"> </h:outputText>
+                        </h:column>
+                    </h:dataTable>
+                    <p>
+                        <h:commandButton action="#{gameController.roll()}" value="roll" style="margin-bottom: 10px;"/>
+                        <br/>Bonuksen saa, jos Summa on vähintään 63.
+                    </p>
+                </fieldset>
+            </h:form>  
+        </p>      
+    </h:body>
+</html>
+

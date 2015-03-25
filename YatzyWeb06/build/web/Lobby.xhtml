@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Aula</title>
+        <script type="text/JavaScript">
+            function TimeToRefresh() {
+                var t = 3000;
+                var urlinen = '${uIController.newUrl}';
+                setTimeout("location.href = '" + urlinen + "';", t);
+            }
+        </script>
+    </h:head>
+    <h:body onload="JavaScript:TimeToRefresh();">
+        <h:graphicImage style="width: auto; height: auto; max-width: 750px; margin-bottom: 15px;" url="banneri.png" alt="Yatzy" />
+        <p>
+            <h:form style="width: auto; height: auto; max-width: 750px;">
+                <fieldset style="background-color: gainsboro;">
+                    <legend style="font-family: arial; background-color: burlywood;">Valitse pelaaja, jonka haluat haastaa peliin </legend>
+                    <h:selectOneListbox value="${uIController.challenged}" style="width: 250px;">
+                        <f:selectItems value="#{uIController.uiPlayers}" var="playeri" itemLabel="${playeri.name} - ${playeri.jonossa}" itemValue="${playeri.name}"/>                
+                    </h:selectOneListbox>
+                    <h:commandButton style="margin-left: 50px;" value="Haasta" action="#{uIController.challengeThePlayer}"></h:commandButton>
+                    <h:commandButton style="margin-left: 200px;" value="Refresh" action="#{uIController.refreshPage}"></h:commandButton>
+                </fieldset>
+            </h:form>
+        </p>
+        <p>
+            <h:form style="width: auto; height: auto; max-width: 300px;">
+                <fieldset style="background-color: gainsboro;">
+                    <legend style="font-family: arial; background-color: burlywood;">High Scores - All time </legend>
+                    <h:dataTable value="#{xMLController.scoreplayers}" var="scoreplayer" width="250px" style="text-align: center;">               
+                        <h:column > 
+                            <f:facet name="header">
+                                <h:outputText value="Nimi"> </h:outputText>
+                            </f:facet>
+                            <h:outputText value="${scoreplayer[0]}" />
+                        </h:column>
+                        <h:column>    
+                            <f:facet name="header">
+                                <h:outputText value="Pisteet"> </h:outputText>
+                            </f:facet>
+                            <h:outputText value="${scoreplayer[1]}" />
+                        </h:column>  
+                    </h:dataTable>
+                </fieldset>
+            </h:form> 
+        </p>
+    </h:body>
+</html>
+
